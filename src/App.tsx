@@ -1,26 +1,26 @@
-import React, { useState } from "react";
-import "./App.css";
-import { BookToRead } from "./BookToRead";
-import BookRow from "./BookRow";
+import React, { useState } from 'react';
+import './App.css';
+import { BookToRead } from './BookToRead';
+import BookRow from './BookRow';
 
 const dummyBooks: BookToRead[] = [
   {
     id: 1,
-    title: "はじめてのReact",
-    authors: "ダミー",
-    memo: ""
+    title: 'はじめてのReact',
+    authors: 'ダミー',
+    memo: ''
   },
   {
     id: 2,
-    title: "React Hooks入門",
-    authors: "ダミー",
-    memo: ""
+    title: 'React Hooks入門',
+    authors: 'ダミー',
+    memo: ''
   },
   {
     id: 3,
-    title: "実践Reactアプリケーション開発",
-    authors: "ダミー",
-    memo: ""
+    title: '実践Reactアプリケーション開発',
+    authors: 'ダミー',
+    memo: ''
   }
 ];
 
@@ -35,19 +35,19 @@ const App = () => {
   const handleBookMemoChange = (id: number, memo: string) => {
     const newBooks = books.map((b) => {
       return b.id === id
-           ? { ...b, memo:memo}
-           : b;
-    })
+        ? { ...b, memo:memo}
+        : b;
+    });
     setBooks(newBooks);
-  }
+  };
 
   const bookRows = books.map((b) => {
     return (
       <BookRow
-      book={b}
-      key={b.id}
-      onMemoChange={(id, memo) => handleBookMemoChange(id, memo)}
-      onDelete={(id) => handleBookDelete(id)}
+        book={b}
+        key={b.id}
+        onMemoChange={(id, memo) => handleBookMemoChange(id, memo)}
+        onDelete={(id) => handleBookDelete(id)}
       />
     );
   });
@@ -59,7 +59,7 @@ const App = () => {
         <div className="button-like">本を追加</div>
       </section>
       <section className="main">
-          {bookRows}
+        {bookRows}
       </section>
     </div>
   );
