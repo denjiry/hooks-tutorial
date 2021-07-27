@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BookToRead } from './BookToRead';
 import BookRow from './BookRow';
@@ -24,9 +24,20 @@ const customStyles = {
   }
 };
 
+const APP_KEY = 'react-hooks-tutorial';
+
 const App = () => {
   const [books, setBooks] = useState([] as BookToRead[]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  useEffect(() => {
+    const storedBooks = localStorage.getItem(APP_KEY);
+    if (storedBooks) {
+      setBooks(JSON.parse(storedBooks));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem(APP_KEY, JSON.stringify(books));
+  }, [books]);
 
   const handleBookDelete = (id: number) => {
     const newBooks = books.filter((b) => b.id !== id);
@@ -36,7 +47,7 @@ const App = () => {
   const handleBookMemoChange = (id: number, memo: string) => {
     const newBooks = books.map((b) => {
       return b.id === id
-        ? { ...b, memo:memo}
+        ? { ...b, memo: memo }
         : b;
     });
     setBooks(newBooks);
@@ -82,7 +93,7 @@ const App = () => {
         onRequestClose={handleModalClose}
         style={customStyles}
       >
-        <BookSearchDialog maxResults={20} onBookAdd={(b) => handleBookAdd(b) } />
+        <BookSearchDialog maxResults={20} onBookAdd={(b) => handleBookAdd(b)} />
       </Modal>
     </div>
   );
